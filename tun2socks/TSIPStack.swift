@@ -43,7 +43,7 @@ public final class TSIPStack {
     /// When the IP stack decides to output some IP packets, this block is called.
     ///
     /// - warning: This should be set before any input.
-    public var outputBlock: ([Data], [Int]) -> () = {_,_ in }
+    public var outputBlock: ([Data], [Int32]) -> () = {_,_ in }
 
     /// The delegate instance.
     ///
@@ -123,7 +123,7 @@ public final class TSIPStack {
         if let length = buf?.pointee.tot_len, let data = NSMutableData(length: Int(length)) {
             pbuf_copy_partial(buf, data.mutableBytes, length, 0)
             // Only support IPv4 as of now.
-            outputBlock([data as Data], [Int(AF_INET)])
+            outputBlock([data as Data], [AF_INET])
         }
     }
 
